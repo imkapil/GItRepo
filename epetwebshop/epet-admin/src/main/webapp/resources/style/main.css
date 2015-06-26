@@ -1,0 +1,56 @@
+
+  body {
+    background-color: linen;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    background-color: #b0e0e6;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+a {
+    display: block;
+    width: 60px;
+    background-color: #dddddd;
+}
+
+
+.error {
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
+form{
+   position:absolute;
+   top:25%;
+   left:40%;
+   width:250px;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+} 
+
+
+
+
+  
+  
