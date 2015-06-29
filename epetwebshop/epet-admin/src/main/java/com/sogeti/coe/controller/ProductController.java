@@ -35,7 +35,7 @@ public class ProductController {
 	@RequestMapping(value = "/product/", method = RequestMethod.GET)
 	public ModelAndView productHome() {
 
-		// set view: /category/list.jsp
+	
 		ModelAndView mav = new ModelAndView("/product/list");
 
 		mav.addObject("productsList", productService.findAll());
@@ -48,7 +48,7 @@ public class ProductController {
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
 	public ModelAndView productAddForm() {
 
-		// set view: /category/add.jsp
+		
 		ModelAndView mav = new ModelAndView("/product/add");
 		mav.addObject("productBean", new Product());
 		mav.addObject("categories", categoryService.findAll());
@@ -59,13 +59,12 @@ public class ProductController {
 	// Saving the product detail
 	
 	@RequestMapping(value="/product/addProductConfirm", method=RequestMethod.POST)
-    public ModelAndView productAddConfirm(@Valid @ModelAttribute("product") Product product, BindingResult result) {
+    public ModelAndView productAddConfirm(@Valid @ModelAttribute("productBean") Product product, BindingResult result) {
     
       if(result.hasErrors()){
-    	      	  System.out.println("inside of result binding ");
     	  ModelAndView mav = new ModelAndView("/product/add");
     	  mav.addObject("productBean",  product);
-    	  mav.addObject("categories", categoryService.findAll());
+  		mav.addObject("categories", categoryService.findAll());
   		 return mav;
       }
        ModelAndView mav = new ModelAndView("redirect:/product/");
@@ -82,17 +81,20 @@ public class ProductController {
 	    ModelAndView mav = new ModelAndView("/product/edit");
 	    Product productEdit = productService.findById(productId); 
 	    mav.addObject("categories", categoryService.findAll());
-	    mav.addObject("productEdit", productEdit);
+	    mav.addObject("productBean", productEdit);
 	 
 	    return mav;
 	}
 	
-	
+	//  saved Edit detail of product
 	@RequestMapping(value="/product/edit/editProductConfirm", method=RequestMethod.POST)
-	public ModelAndView productEditConfirm(@Valid @ModelAttribute Product product, BindingResult result) {
+	public ModelAndView productEditConfirm(@Valid @ModelAttribute("productBean") Product product, BindingResult result) {
 	 
 	 if(result.hasErrors()){
-		 
+		    ModelAndView mav = new ModelAndView("/product/edit");
+		    mav.addObject("categories", categoryService.findAll());
+		    mav.addObject("productBean", product);
+           return mav;
 	 
 	 }
 		// set view: redirect to /product/
@@ -104,6 +106,7 @@ public class ProductController {
 	    return mav;
 	}
 	
+	//Remove the product from List
 	
 	@RequestMapping(value="/product/delete/{productId}", method=RequestMethod.GET)
 	public ModelAndView productRemoveConfirm(@PathVariable Long productId) {
