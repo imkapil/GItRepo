@@ -47,7 +47,7 @@ h1 {
 
 <h1>Edit Category</h1>
 <form:form action="editCategoryConfirm" method="post"
-                commandName="categoryEdit" >
+                commandName="categoryBean" >
                 <form:hidden path="categoryId" id="categoryId" />
 <table>
 <tr>
