@@ -43,7 +43,7 @@ h1 {
 
 <h1 align="center">Edit Product</h1>
 <form:form action="editProductConfirm" method="post"
-                commandName="productEdit" cssClass="form-horizontal" >
+                commandName="productBean"  >
                 <form:hidden path="productId" id="productId" />
  <form:errors path="*" cssClass="errorblock" element="div" />              
 <table ><tr>
@@ -68,9 +68,11 @@ h1 {
                     <td><form:textarea path="productDescription" id="productDescription" /></td>
                     <tr>
    <td><spring:message code="lbl.category.text"/></td>
-    <td><form:select path="category" items="${categories}"
-                        itemLabel="categoryName" itemValue="categoryId" cssStyle="width: 150px;">
-                    </form:select>
+    <td><form:select path="category" cssStyle="width: 150px;">
+         <c:forEach items="${categories}" var="category">
+            <option <c:if test="${category.categoryId eq productBean.category.categoryId}">selected="selected"</c:if>    value="${category.categoryId}">${category.categoryName} </option>
+        </c:forEach>
+            </form:select>
                     
                     <td></tr>
     <tr>
