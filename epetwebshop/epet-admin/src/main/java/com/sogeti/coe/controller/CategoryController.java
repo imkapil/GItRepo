@@ -42,7 +42,7 @@ public class CategoryController {
 
 	// method used for saving Category
 	@RequestMapping(value = "/category/addCategoryConfirm", method = RequestMethod.POST)
-	public ModelAndView categoryAddConfirm( @Valid @ModelAttribute("category") Category category
+	public ModelAndView categoryAddConfirm( @Valid @ModelAttribute("categoryBean") Category category
 			,BindingResult result) {
 		// if it has any error 
 		if(result.hasErrors()){
@@ -63,7 +63,7 @@ public class CategoryController {
 
 		ModelAndView mav = new ModelAndView("/category/edit");
 		Category categoryEdit = categoryService.findById(categoryId);
-		mav.addObject("categoryEdit", categoryEdit);
+		mav.addObject("categoryBean", categoryEdit);
 
 		return mav;
 	}
@@ -71,15 +71,20 @@ public class CategoryController {
 	// method used for saved Edit Category
 
 	@RequestMapping(value = "/category/edit/editCategoryConfirm", method = RequestMethod.POST)
-	public ModelAndView categoryEditConfirm(@ModelAttribute Category category) {
+		public ModelAndView categoryEditConfirm( @ Valid @ModelAttribute("categoryBean") Category category, BindingResult result) {
+			 if(result.hasErrors())
+			 {
+					ModelAndView mav = new ModelAndView("/category/edit");
+					mav.addObject("categoryBean", category);
+					return mav;
+			 }
 
-		ModelAndView mav = new ModelAndView("redirect:/category/");
+			ModelAndView mav = new ModelAndView("redirect:/category/");
+					// Update Category from edit form
+			categoryService.editCategory(category, category.getCategoryId());
 
-		// Update Category from edit form
-		categoryService.editCategory(category, category.getCategoryId());
-
-		return mav;
-	}
+			return mav;
+		}
 
 	// method used for saved remove Category
 	@RequestMapping(value = "/category/delete/{categoryId}", method = RequestMethod.GET)
